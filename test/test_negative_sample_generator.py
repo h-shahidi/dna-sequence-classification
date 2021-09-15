@@ -1,7 +1,7 @@
 import pytest
 
-from preprocessor import NegativeSampleGenerator
-from vocabulary import Vocab
+from predictor.preprocessor import NegativeSampleGenerator
+from predictor.vocabulary import Vocab
 
 
 @pytest.fixture

@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-from utils import plot, save_checkpoint
+from predictor.utils import plot, save_checkpoint
 
 
 def train(

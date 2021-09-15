@@ -3,15 +3,14 @@ import torch.optim as optim
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 
-import constants as c
-from data import DNASeqDataset, collate_fn, load_data
-from evaluate import evaluate
-from model import BiLSTM
-from preprocessor import DataPreprocessor, NegativeSampleGenerator
-from train import train
-from utils import set_seeds, argument_parser
-from vocabulary import Vocab
-
+import predictor.constants as c
+from predictor.data import DNASeqDataset, collate_fn, load_data
+from predictor.evaluate import evaluate
+from predictor.model import BiLSTM
+from predictor.preprocessor import DataPreprocessor, NegativeSampleGenerator
+from predictor.train import train
+from predictor.utils import argument_parser, set_seeds
+from predictor.vocabulary import Vocab
 
 if __name__ == "__main__":
     set_seeds()

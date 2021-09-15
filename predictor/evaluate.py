@@ -1,6 +1,6 @@
 import torch
 
-from utils import load_model
+from predictor.utils import load_model
 
 
 def evaluate(model, valid_iter, path):

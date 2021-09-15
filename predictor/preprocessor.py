@@ -4,8 +4,8 @@ from typing import Dict, List
 
 import torch
 
-import constants as c
-from vocabulary import Vocab
+import predictor.constants as c
+from predictor.vocabulary import Vocab
 
 
 class NegativeSampleGenerator:
