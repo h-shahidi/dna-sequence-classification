@@ -41,14 +41,18 @@ def argument_parser():
     parser.add_argument("--hid_dim", type=int, default=128)
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--n_epochs", type=int, default=30)
+    parser.add_argument("--model_path", type=str, default="./model.pt")
     return parser.parse_args()
 
 
-def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float], path: str):
+def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float]):
     train_loss_list = moving_average(train_loss_list, 20)
     valid_loss_list = moving_average(valid_loss_list, 20)
     plt.plot(
-        np.linspace(0, n_steps, len(train_loss_list)), train_loss_list, "r", label="train"
+        np.linspace(0, n_steps, len(train_loss_list)),
+        train_loss_list,
+        "r",
+        label="train",
     )
     plt.plot(
         np.linspace(0, n_steps, len(valid_loss_list)),
@@ -59,4 +63,4 @@ def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float
     plt.legend()
     plt.xlabel("Iterations")
     plt.ylabel("Loss")
-    plt.savefig(path)
+    plt.savefig("loss.png")

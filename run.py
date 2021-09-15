@@ -1,5 +1,3 @@
-import os
-
 import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
@@ -33,21 +31,30 @@ if __name__ == "__main__":
         print(f"Train size: {len(train_seqs)}")
         print(f"Validation size: {len(valid_seqs)}")
 
-        train_dataset = DNASeqDataset(train_seqs[:100], train_labels[:100])
+        train_dataset = DNASeqDataset(train_seqs, train_labels)
         valid_dataset = DNASeqDataset(valid_seqs, valid_labels)
         train_iter = DataLoader(
-            train_dataset, batch_size=args.batch_size, shuffle=True, collate_fn=collate_fn
+            train_dataset,
+            batch_size=args.batch_size,
+            shuffle=True,
+            collate_fn=collate_fn,
         )
         valid_iter = DataLoader(
-            valid_dataset, batch_size=args.batch_size, shuffle=True, collate_fn=collate_fn
+            valid_dataset,
+            batch_size=args.batch_size,
+            shuffle=True,
+            collate_fn=collate_fn,
         )
     elif args.mode == "eval":
         test_seqs, test_labels = preprocessor.process_inference(data)
         print(f"Test size: {len(test_seqs)}")
         test_dataset = DNASeqDataset(test_seqs, test_labels)
         test_iter = DataLoader(
-            test_dataset, batch_size=args.batch_size, shuffle=True, collate_fn=collate_fn
-        )        
+            test_dataset,
+            batch_size=args.batch_size,
+            shuffle=True,
+            collate_fn=collate_fn,
+        )
     else:
         raise Exception("Mode not defined")
 
@@ -64,10 +71,10 @@ if __name__ == "__main__":
             valid_iter,
             args.n_epochs,
             len(train_iter) // 2,
-            c.PATH,
+            args.model_path,
         )
-        acc = evaluate(model, valid_iter, os.path.join(c.PATH, c.MODEL_NAME))
+        acc = evaluate(model, valid_iter, args.model_path)
         print(f"Validation accuracy: {acc}%")
     else:
-        acc = evaluate(model, test_iter, os.path.join(c.PATH, c.MODEL_NAME))
-        print(f"Test accuracy: {acc}%") 
+        acc = evaluate(model, test_iter, args.model_path)
+        print(f"Test accuracy: {acc}%")

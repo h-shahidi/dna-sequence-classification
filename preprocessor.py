@@ -82,7 +82,7 @@ class DataPreprocessor:
         seqs = []
         labels = []
         for example in data:
-            seq, label = example.split()
+            seq, label = example.split(",")
             indexed_seq = []
             for char in seq:
                 indexed_seq.append(self.vocab.word2index[char])

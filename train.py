@@ -4,7 +4,6 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-import constants as c
 from utils import plot, save_checkpoint
 
 
@@ -16,7 +15,7 @@ def train(
     valid_iter,
     num_epochs,
     eval_every,
-    output_path,
+    model_path,
 ):
     train_loss_list = []
     valid_loss_list = []
@@ -24,8 +23,6 @@ def train(
     train_running_loss = 0
     best_valid_loss = float("inf")
     step = 0
-    model_path = os.path.join(output_path, c.MODEL_NAME)
-    fig_path = os.path.join(output_path, c.FIG_NAME)
     model.train()
     for e in range(num_epochs):
         print(f"Epoch number {e}")
@@ -60,4 +57,4 @@ def train(
                     best_valid_loss = avg_valid_loss
                     save_checkpoint(model_path, model, optimizer)
 
-    plot(step, train_loss_list, valid_loss_list, fig_path)
+    plot(step, train_loss_list, valid_loss_list)

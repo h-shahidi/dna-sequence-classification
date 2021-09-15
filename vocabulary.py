@@ -12,7 +12,7 @@ class Vocab:
         index2word = {}
         index = 1
         for seq in data:
-            for char in seq.split()[0]:
+            for char in seq.split(",")[0]:
                 if char not in word2index:
                     word2index[char] = index
                     index2word[index] = char
