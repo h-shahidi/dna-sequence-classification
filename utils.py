@@ -7,15 +7,6 @@ import numpy as np
 import torch
 
 
-def load_data(path):
-    with open(path, "r") as f:
-        data = f.read()
-        data = data.split("\n")[:-1]
-
-    print(f"Number of data points: {len(data)}")
-    return data
-
-
 def save_checkpoint(path, model, optimizer):
     state_dict = {
         "model_state_dict": model.state_dict(),
@@ -43,24 +34,24 @@ def moving_average(x, window):
 
 def argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", type=str, default="train")
-    parser.add_argument("data_path", type=str, default="train.csv")
-    parser.add_argument("lr", type=float, default=0.001)
-    parser.add_argument("emb_dim", type=int, default=300)
-    parser.add_argument("hid_dim", type=int, default=128)
-    parser.add_argument("batch_size", type=int, default=64)
-    parser.add_argument("n_epoch", type=int, default=30)
+    parser.add_argument("--mode", type=str, default="train")
+    parser.add_argument("--data_path", type=str, default="train.csv")
+    parser.add_argument("--lr", type=float, default=0.001)
+    parser.add_argument("--emb_dim", type=int, default=300)
+    parser.add_argument("--hid_dim", type=int, default=128)
+    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--n_epochs", type=int, default=30)
     return parser.parse_args()
 
 
-def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float]):
+def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float], path: str):
     train_loss_list = moving_average(train_loss_list, 20)
     valid_loss_list = moving_average(valid_loss_list, 20)
     plt.plot(
-        np.linspace(0, step, len(train_loss_list)), train_loss_list, "r", label="train"
+        np.linspace(0, n_steps, len(train_loss_list)), train_loss_list, "r", label="train"
     )
     plt.plot(
-        np.linspace(0, step, len(valid_loss_list)),
+        np.linspace(0, n_steps, len(valid_loss_list)),
         valid_loss_list,
         "b",
         label="validation",
@@ -68,4 +59,4 @@ def plot(n_steps: int, train_loss_list: List[float], valid_loss_list: List[float
     plt.legend()
     plt.xlabel("Iterations")
     plt.ylabel("Loss")
-    plt.savefig(fig_path)
+    plt.savefig(path)

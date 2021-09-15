@@ -60,4 +60,4 @@ def train(
                     best_valid_loss = avg_valid_loss
                     save_checkpoint(model_path, model, optimizer)
 
-    plot(step, train_loss_list, valid_loss_list)
+    plot(step, train_loss_list, valid_loss_list, fig_path)

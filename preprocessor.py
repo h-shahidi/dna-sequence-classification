@@ -55,13 +55,13 @@ class DataPreprocessor:
         self.vocab = vocab
         self.neg_sample_gen = neg_sample_gen
 
-    def process(self, data: List[str]):
+    def process_train(self, data: List[str]):
         pos_seqs = set()
         neg_seqs = set()
         labels = []
-        for seq in data:
+        for example in data:
             pos_seq = []
-            for char in seq:
+            for char in example:
                 pos_seq.append(self.vocab.word2index[char])
             pos_seqs.add(tuple(pos_seq))
 
@@ -76,4 +76,16 @@ class DataPreprocessor:
 
         seqs = list(pos_seqs) + list(neg_seqs)
         labels = [c.POSITIVE] * len(pos_seqs) + [c.NEGATIVE] * len(neg_seqs)
+        return seqs, labels
+
+    def process_inference(self, data: List[str]):
+        seqs = []
+        labels = []
+        for example in data:
+            seq, label = example.split()
+            indexed_seq = []
+            for char in seq:
+                indexed_seq.append(self.vocab.word2index[char])
+            seqs.append(indexed_seq)
+            labels.append(int(label))
         return seqs, labels

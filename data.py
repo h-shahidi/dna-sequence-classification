@@ -23,3 +23,12 @@ def collate_fn(batch):
     lengths = [len(seq) for seq in seqs]
     lengths = torch.tensor(lengths, dtype=torch.long)
     return padded_seqs, labels, lengths
+
+
+def load_data(path):
+    with open(path, "r") as f:
+        data = f.read()
+        data = data.strip().split("\n")
+
+    print(f"Number of data points: {len(data)}")
+    return data
