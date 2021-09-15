@@ -8,6 +8,9 @@ To prepare your environment, run the following command:
 conda env create -f env.yaml
 ```
 
+## Model
+We used a bi-LSTM recurrent neural network to do the prediction. This architecture was able to achieve ~ 81% accuracy on the validation set. 
+
 ## Train
 To train a model, use the following command:
 ```
